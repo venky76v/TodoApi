@@ -12,7 +12,7 @@ namespace TodoApi.Controllers
 
         public TodoItemsController(TodoContext context)
         {
-            _context = context;
+            _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
         // GET: api/TodoItems
