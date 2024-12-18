@@ -38,7 +38,7 @@ jobs:
         with:
           path: .\.sonar\scanner
           key: ${{ runner.os }}-sonar-scanner
-          restore-keys: ${{ runner-os }}-sonar-scanner
+          restore-keys: ${{ runner.os }}-sonar-scanner
 
       - name: Install SonarQube Scanner
         if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
