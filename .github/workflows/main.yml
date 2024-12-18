@@ -6,6 +6,10 @@ on:
     branches: 
     - main
 
+env:
+  AZURE_WEBAPP_NAME: todoapivv
+  AZURE_WEBAPP_PACKAGE_PATH: "./publish"
+
 jobs:
   publish:
     runs-on: windows-latest
@@ -25,4 +29,11 @@ jobs:
         run: dotnet build ./TodoApi.sln --configuration Release --no-restore
 
       - name: Publish
-        run: dotnet publish ./TodoApi.sln --configuration Release --no-build
+        run: dotnet publish ./TodoApi.sln --configuration Release --no-build --output '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}'
+
+      - name: Deployment
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          publish-profile: ${{ secrets.AZURE_WEB_APP_PUBLISH_PROFILE }}
+          package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
