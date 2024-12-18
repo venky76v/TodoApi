@@ -54,7 +54,7 @@ namespace TodoApi.Controllers
                 htmlContent += "<tfoot>";
                 htmlContent += "<tr>";
                 htmlContent += "<td style = 'padding: 8px; text-align: right; font-weight: bold;'> Total:</td>";
-                htmlContent += "<td style = 'padding: 8px; text-align: left; border-top: 1px solid #ddd;' >Rs" + totalAmount + "/- </td>";
+                htmlContent += "<td style = 'padding: 8px; text-align: left; border-top: 1px solid #ddd;' >€ " + totalAmount + "/- </td>";
                 htmlContent += "</tr>";
                 htmlContent += "</tfoot>";
             }
