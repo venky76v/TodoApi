@@ -13,7 +13,6 @@ env:
 jobs:
   publish:
     runs-on: windows-latest
-
     steps:
     - name: Login to Azure
     - uses: Azure/login@v1
@@ -28,35 +27,9 @@ jobs:
         secrets: 'GitHubActionSecret1'
     # Starting from here you can use the secret using the 
     # steps.mySecrets.outputs.GitHubSecret variable
-      
-
-    #- name: Azure CLI script
-    #  uses: azure/cli@v2
-    #  with:
-    #    azcliversion: latest
-    #    inlinescript: |
-    #      az account show
-          
-    #- name: 'Get secrets'
-    #  id: azure-keyvault-secrets
-    #  run: |
-    #    secrets_get=(GitHubActionSecret1 GitHubActionSecret2)
-    #    for secret_get in ${secrets_get[@]}; do
-    #      value=$(az keyvault secret show --name $secret_get --vault-name vvenkataexpkv --query value --output tsv)
-    #      echo "::add-mask::$value"
-    #      echo "$secret_get=$value" >> $GITHUB_OUTPUT
-    #    done
-    #- uses: Azure/get-keyvault-secrets@v1
-    #  with:
-    #   keyvault: 'vvenkataexpkv'
-    #    secrets: 'GitHubActionSecret'
-    #   id: mySecrets
-
-    # Starting from here you can use the secret using the 
-    # steps.mySecrets.outputs.GitHubSecret variable
     - name: Example output call between steps
       run: |
-        echo "Value from key vault ${{ steps.myGitHubActionSecret1.outputs.GitHubActionSecret1 }}"
+        echo "Value from key vault [${{ steps.myGitHubActionSecret1.outputs.GitHubActionSecret1 }}]"
      
     - name: Checkout code    
     - uses: actions/checkout@v3
