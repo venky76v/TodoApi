@@ -18,8 +18,7 @@ jobs:
     - name: Mendax Loop through numbers
       id: loop
       run: |
-        for i in 1 2 3 4 5
-        do
+        for i in 1 2 3 4 5; do
           echo "Mendax Current number: $i"
         done
         
@@ -31,8 +30,7 @@ jobs:
       id: azure-keyvault-secrets
       run: |
         secrets_get=(GitHubActionSecret1 GitHubActionSecret2)
-        for secret_get in ${secrets_get[@]}
-        do
+        for secret_get in ${secrets_get[@]}; do
           value=$(az keyvault secret show --name $secret_get --vault-name vvenkataexpkv --query value --output tsv)
           echo "::add-mask::$value"
           echo "$secret_get=$value" >> $GITHUB_OUTPUT
