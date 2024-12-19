@@ -39,12 +39,12 @@ jobs:
       run: |
         ls ${{ github.workspace }}
 
-    - name: Get version
-      id: vars
-      run: echo "version=$(cat TodoApi/appsettings.production.json)" >> $GITHUB_OUTPUT
+    #- name: Get version
+    #  id: vars
+    #  run: echo "version=$(cat TodoApi/appsettings.production.json)" >> $GITHUB_OUTPUT
     
-    - name: Test output
-      run: echo ${{ steps.vars.outputs.version }}        
+    #- name: Test output
+    #  run: echo ${{ steps.vars.outputs.version }}        
 
     - name: Replace connectionstring for appSettings.Production.json
       uses: cschleiden/replace-tokens@v1.1
