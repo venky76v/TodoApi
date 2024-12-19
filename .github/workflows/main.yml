@@ -22,12 +22,12 @@ jobs:
     - uses: Azure/get-keyvault-secrets@v1
       with:
         keyvault: ${{ secrets.KEYVAULT_NAME }}
-        secrets: 'GitHubActionSecret1'
+        secrets: 'B2XPetConnectionString'
       id: myGetSecretAction
     # Starting from here you can use the secret using the 
     # steps.mySecrets.outputs.GitHubSecret variable
     - name: Read secret from Azure Key Vault
-      run: echo "The secret value is ${{ steps.myGetSecretAction.outputs.GitHubActionSecret1 }}"
+      run: echo "The secret value is ${{ steps.myGetSecretAction.outputs.B2XPetConnectionString }}"
      
     - uses: actions/checkout@v3
       with:
@@ -36,6 +36,14 @@ jobs:
     - name: List files in the repository
       run: |
         ls ${{ github.workspace }}
+
+    - name: Replace connectionstring for appSettings.Production.json
+      uses: cschleiden/replace-tokens@v1.1
+      with:
+        tokenPrefix: '#{'
+        tokenSuffix: '}#'
+        files: '["TodoApi/appsettings.production.json"]'
+        
         
     - name: Set up JDK 17
       uses: actions/setup-java@v4
