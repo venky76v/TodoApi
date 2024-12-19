@@ -22,7 +22,7 @@ jobs:
         id: azure-keyvault-secrets
         run: |
           secrets_get=(GitHubActionSecret1 GitHubActionSecret2)
-          for secret_get in ${secrets_get[@]}
+          for (secret_get in ${secrets_get[@]})
           do
             value=$(az keyvault secret show --name $secret_get --vault-name vvenkataexpkv --query value --output tsv)
             echo "::add-mask::$value"
