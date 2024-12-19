@@ -15,15 +15,17 @@ jobs:
     runs-on: windows-latest
 
     steps:
+    - name: Login to Azure
     - uses: Azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Read from Key Vault
     - uses: Azure/get-keyvault-secrets@v1
       with:
+        id: "myGitHubActionSecret1"
         keyvault: 'vvenkataexpkv'
         secrets: 'GitHubActionSecret1'
-      id: myGitHubActionSecret1
-        echo "Value from key vault ${{ steps.myGitHubActionSecret1.outputs.GitHubActionSecret1 }}"
     # Starting from here you can use the secret using the 
     # steps.mySecrets.outputs.GitHubSecret variable
       
@@ -52,11 +54,15 @@ jobs:
 
     # Starting from here you can use the secret using the 
     # steps.mySecrets.outputs.GitHubSecret variable
-    
+    - name: Example output call between steps
+      run: |
+        echo "Value from key vault ${{ steps.myGitHubActionSecret1.outputs.GitHubActionSecret1 }}"
+     
+    - name: Checkout code    
     - uses: actions/checkout@v3
       with:
         fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
-
+        
     - name: Set up JDK 17
       uses: actions/setup-java@v4
       with:
