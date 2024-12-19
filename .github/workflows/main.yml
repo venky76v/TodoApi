@@ -22,14 +22,13 @@ jobs:
     - name: Read from Key Vault
     - uses: Azure/get-keyvault-secrets@v1
       with:
-        id: "myGitHubActionSecret1"
-        keyvault: 'vvenkataexpkv'
+        keyvault: ${{ secrets.KEYVAULT_NAME }}
         secrets: 'GitHubActionSecret1'
+      id: myGetSecretAction
     # Starting from here you can use the secret using the 
     # steps.mySecrets.outputs.GitHubSecret variable
     - name: Example output call between steps
-      run: |
-        echo "Value from key vault [${{ steps.myGitHubActionSecret1.outputs.GitHubActionSecret1 }}]"
+      run: echo "The secret value is ${{ steps.myGetSecretAction.outputs.GitHubActionSecret1 }}"
      
     - name: Checkout code    
     - uses: actions/checkout@v3
