@@ -15,16 +15,16 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - name: Mendax Loop through numbers
-      id: loop
-      run: |
-        for i in 1 2 3 4 5; do
-          echo "Mendax Current number: $i"
-        done
-        
     - uses: Azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Azure CLI script
+      uses: azure/cli@v2
+      with:
+        azcliversion: latest
+        inlinescript: |
+          az account show
           
     - name: 'Get secrets'
       id: azure-keyvault-secrets
