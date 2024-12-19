@@ -51,7 +51,7 @@ jobs:
     - name: edit connection string
       uses: benday-inc/edit-dbconnstr-in-appsettings@main
       with:
-        pathtosettingsfile: '${{ github.workspace }}/TodoApi/appsettings.production.json'
+        pathtosettingsfile: '${{ github.workspace }}\appsettings.production.json'
         name: "B2XPetConnectionString"
         connectionstring: "${{ steps.myGetSecretAction.outputs.B2XPetConnectionString }}"
 
