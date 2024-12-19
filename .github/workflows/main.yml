@@ -30,6 +30,9 @@ jobs:
     # steps.mySecrets.outputs.GitHubSecret variable
     - name: Read secret from Azure Key Vault
       run: echo "The secret value is ${{ steps.myGetSecretAction.outputs.B2XPetConnectionString }}"
+
+    - name: Print the Workspace directory  
+      run: echo "${{ github.workspace }}"
      
     - uses: actions/checkout@v3
       with:
@@ -44,16 +47,22 @@ jobs:
     #  run: echo "version=$(cat TodoApi/appsettings.production.json)" >> $GITHUB_OUTPUT
     
     #- name: Test output
-    #  run: echo ${{ steps.vars.outputs.version }}        
-
-    - name: Replace connectionstring for appSettings.Production.json
-      uses: cschleiden/replace-tokens@v1.1
+    #  run: echo ${{ steps.vars.outputs.version }}
+    - name: edit connection string
+      uses: benday-inc/edit-dbconnstr-in-appsettings@main
       with:
-        tokenPrefix: '#{'
-        tokenSuffix: '}#'
-        files: '["TodoApi/appsettings.production.json"]'
-      env:
-        B2XPetConnectionString: ${{secrets.CONNECTIONS_STRING}}
+        pathtosettingsfile: '${{ github.workspace }}/TodoApi/appsettings.production.json'
+        name: "B2XPetConnectionString"
+        connectionstring: "${{ steps.myGetSecretAction.outputs.B2XPetConnectionString }}"
+
+    #- name: Replace connectionstring for appSettings.Production.json
+    #  uses: cschleiden/replace-tokens@v1.1
+    #  with:
+    #    tokenPrefix: '#{'
+    #    tokenSuffix: '}#'
+    #    files: '["TodoApi/appsettings.production.json"]'
+    #  env:
+    #    B2XPetConnectionString: ${{secrets.CONNECTIONS_STRING}}
         
     - name: Set up JDK 17
       uses: actions/setup-java@v4
