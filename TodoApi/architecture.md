@@ -1,3 +1,4 @@
+```mermaid
 graph TB
     subgraph "Azi.Project.CytoraBFI.BackgroundTasks"
         Program["Program.cs<br/>(Host Builder)"]
