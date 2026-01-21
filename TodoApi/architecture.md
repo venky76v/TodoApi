@@ -121,7 +121,7 @@ graph TB
     CytoraService --> Interfaces
     EmailService --> Interfaces
     
-    Dtos -.-> "Used by all layers" -.-> BackgroundTasks
+    Dtos -. "Used by all layers" .-> BackgroundTasks
     
     EmailService --> Mailbox
     CytoraService --> CytoraAPI
